@@ -3,6 +3,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const affiliateId = urlParams.get('id');
 
+    // Inicializar Firebase
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
     // Verificar se o afiliado existe no Firebase
     if (affiliateId) {
         const affiliateRef = db.ref(`afiliados/${affiliateId}`);
@@ -16,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 invitationCodeElement.innerText = affiliateId;
 
                 // Atualizar o número de cliques no Firebase
-                const clicksRef = affiliateRef.child('cliques');
+                const clicksRef = affiliateRef.child('cliks');
                 clicksRef.transaction(currentClicks => (currentClicks || 0) + 1);
 
                 console.log(`Código de convite atualizado para ${affiliateId}. Cliques atualizados.`);

@@ -40,7 +40,7 @@
 
             // Verificar se o afiliado existe no Firebase
             if (affiliateId) {
-                const affiliateRef = db.ref(`bezcrypto-banco-de-dados/afiliado/${affiliateId}`);
+                const affiliateRef = db.ref(`bezcrypto-banco-de-dados/afliado/${affiliateId}`);
 
                 affiliateRef.once('value').then(snapshot => {
                     const affiliateData = snapshot.val();

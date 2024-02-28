@@ -14,12 +14,14 @@ const firebaseConfig = {
     appId: "1:994447258427:web:5479a4a067124bb0407d1e",
     measurementId: "G-DT0BRKVT6P"
   };
+
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     // Verificar se o afiliado existe no Firebase
     if (affiliateId) {
-        const affiliateRef = db.ref(`afiliados/${affiliateId}`);
+        const affiliateRef = db.ref(`afiliado/${affiliateId}`);
 
         affiliateRef.once('value').then(snapshot => {
             const affiliateData = snapshot.val();
@@ -29,13 +31,18 @@ const firebaseConfig = {
                 const invitationCodeElement = document.getElementById('affiliate-code');
                 invitationCodeElement.innerText = affiliateId;
 
-                // Atualizar o número de cliques no Firebase
-                const clicksRef = affiliateRef.child('cliks');
-                clicksRef.transaction(currentClicks => (currentClicks || 0) + 1);
+                // Obter o número de cliques no Firebase
+                const clicksRef = affiliateRef.child('clicks');
+                clicksRef.transaction(currentClicks => {
+                    // Atualizar o número de cliques e exibir mensagem
+                    const newClicks = (currentClicks || 0) + 1;
+                    alert(`Código de convite atualizado para ${affiliateId}. Cliques atualizados: ${newClicks}`);
+                    return newClicks;
+                });
 
-                console.log(`Código de convite atualizado para ${affiliateId}. Cliques atualizados.`);
             } else {
-                console.log('Afiliado não encontrado.');
+                // Exibir mensagem caso o afiliado não seja encontrado
+                alert('Afiliado não encontrado. Copie o código e compartilhe!');
             }
         }).catch(error => {
             console.error('Erro ao buscar afiliado:', error);

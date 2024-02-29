@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BezCrypto - Plataforma de Investimentos</title>
   <style>
-    body {
+body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
@@ -110,6 +110,9 @@
   </style>
 </head>
 <body>
+  </style>
+</head>
+<body>
 
   <header>
     <h1>BezCrypto</h1>
@@ -146,16 +149,20 @@
     <p>Participe do nosso programa de afiliados e ganhe benefícios exclusivos. <a href="https://moz.com" target="_blank">Clique aqui para se inscrever</a>.</p>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
   <script src="js/firebase.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const mediaLinkId = params.get("media.link.id") || "puF3KkwCvsauNwz2hndczDFWLuZ2";
 
     const clicksRef = firebase.database().ref(`afliado/${mediaLinkId}/clicks`);
-    clicksRef.once("value").then((snapshot) => {
-      const clicks = snapshot.val() || 0;
-      const novoValor = clicks + 1;
-      clicksRef.set(novoValor);
+
+    clicksRef.transaction((currentClicks) => {
+      // Esta função é chamada para obter o valor atual antes de fazer alterações.
+      // Se currentClicks for null, significa que é a primeira vez, e definimos para 1.
+      return (currentClicks || 0) + 1;
     });
 
     function redirectToAffiliateProgram() {

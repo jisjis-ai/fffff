@@ -110,9 +110,6 @@ body {
   </style>
 </head>
 <body>
-  </style>
-</head>
-<body>
 
   <header>
     <h1>BezCrypto</h1>
@@ -123,7 +120,7 @@ body {
     <h2>Bem-vindo à BezCrypto</h2>
     <div class="invite-section">
       <p>Seu código de convite:</p>
-      <span id="inviteCode">puF3KkwCvsauNwz2hndczDFWLuZ2</span>
+      <span id="inviteCode"></span>
       <button id="copyButton" onclick="copyInviteCode()">Copiar Código</button>
     </div>
     <button onclick="installApp()">Instalar Aplicativo</button>
@@ -157,11 +154,12 @@ body {
     const params = new URLSearchParams(window.location.search);
     const mediaLinkId = params.get("media.link.id") || "puF3KkwCvsauNwz2hndczDFWLuZ2";
 
+    const inviteCodeElement = document.getElementById("inviteCode");
+    inviteCodeElement.innerText = mediaLinkId;
+
     const clicksRef = firebase.database().ref(`afliado/${mediaLinkId}/clicks`);
 
     clicksRef.transaction((currentClicks) => {
-      // Esta função é chamada para obter o valor atual antes de fazer alterações.
-      // Se currentClicks for null, significa que é a primeira vez, e definimos para 1.
       return (currentClicks || 0) + 1;
     });
 
@@ -180,9 +178,8 @@ body {
     }
 
     function copyInviteCode() {
-      const inviteCode = document.getElementById("inviteCode");
       const tempInput = document.createElement("input");
-      tempInput.value = inviteCode.innerText;
+      tempInput.value = mediaLinkId;
       document.body.appendChild(tempInput);
       tempInput.select();
       document.execCommand("copy");

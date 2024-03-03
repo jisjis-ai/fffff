@@ -1,99 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BezCrypto - Redefinição de senha</title>
-    <style>
-        /* Estilo do formulário */
-        form {
-            width: 400px;
-            margin: 50px auto;
-            border: 1px solid #ccc;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Estilo dos campos de entrada */
-        input {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        /* Estilo do botão de envio */
-        input[type=submit] {
-            background-color: #04AA6D;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Estilo da mensagem de erro */
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha</title>
 </head>
 <body>
-    <form id="reset-form">
-        <h1>BezCrypto - Redefinição de senha</h1>
-        <p>Por favor, digite seu e-mail e sua nova senha.</p>
-        <div id="error-message" class="error"></div>
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Nova senha</label>
-        <input type="password" id="password" name="password" required>
-        <input type="submit" value="Redefinir senha">
+    <h1>Redefinir Senha</h1>
+    <p>Insira sua nova senha:</p>
+    <form id="resetForm">
+        <label for="novaSenha">Nova Senha:</label>
+        <input type="password" id="novaSenha" name="novaSenha" required>
+        <br>
+        <label for="confirmarSenha">Confirmar Senha:</label>
+        <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+        <br>
+        <button type="button" onclick="resetSenha()">Redefinir Senha</button>
     </form>
+
+    <!-- Firebase JS -->
     <script src="js/firebase.js"></script>
-    <script>
-        // Referência ao formulário
-        var resetForm = document.getElementById("reset-form");
 
-        // Referência à mensagem de erro
-        var errorMessage = document.getElementById("error-message");
-
-        // Função para redefinir a senha
-        function resetPassword() {
-            // Obter o e-mail e a nova senha
-            var email = resetForm.email.value;
-            var password = resetForm.password.value;
-
-            // Obter o código de redefinição de senha da URL
-            var urlParams = new URLSearchParams(window.location.search);
-            var code = urlParams.get("oobCode");
-
-            // Verificar se o código é válido
-            firebase.auth().verifyPasswordResetCode(code)
-                .then(function(email) {
-                    // Confirmar a redefinição de senha
-                    firebase.auth().confirmPasswordReset(code, password)
-                        .then(function() {
-                            // Mostrar uma mensagem de sucesso
-                            alert("Sua senha foi redefinida com sucesso.");
-                            // Redirecionar para a página inicial
-                            window.location.href = "index.html";
-                        })
-                        .catch(function(error) {
-                            // Mostrar uma mensagem de erro
-                            errorMessage.textContent = error.message;
-                        });
-                })
-                .catch(function(error) {
-                    // Mostrar uma mensagem de erro
-                    errorMessage.textContent = error.message;
-                });
-        }
-
-        // Adicionar um evento de envio ao formulário
-        resetForm.addEventListener("submit", function(event) {
-            // Evitar o comportamento padrão do formulário
-            event.preventDefault();
-            // Chamar a função de redefinição de senha
-            resetPassword();
-        });
-    </script>
+    <!-- JS para processar a redefinição de senha -->
+    <script src="js/reset.js"></script>
 </body>
 </html>

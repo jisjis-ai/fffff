@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Afiliados BezCrypto</title>
+</head>
+<body>
+
+  <form id="affiliateForm">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required>
+
+    <label for="morada">Morada:</label>
+    <input type="text" id="morada" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <label for="pais">País:</label>
+    <input type="text" id="pais" required>
+
+    <label for="moeda">Moeda:</label>
+    <input type="text" id="moeda" required>
+
+    <label for="telefone">Número de Telefone:</label>
+    <input type="tel" id="telefone" required>
+
+    <label for="dataNascimento">Data de Nascimento:</label>
+    <input type="date" id="dataNascimento" required>
+
+    <button type="button" onclick="verificarFormulario()">Enviar</button>
+  </form>
+
+  <div id="dialog" class="hidden">
+    <p>Para se inscrever no programa de afiliados da BezCrypto e ganhar comissões, baixe o aplicativo:</p>
+    <button onclick="redirectToMoz()">Download</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -11,13 +11,9 @@ function resetSenha() {
 
     const urlParams = new URLSearchParams(window.location.search);
     const oobCode = urlParams.get('oobCode');
-    
-    // Use o código Firebase para redefinir a senha
-    firebase.auth().verifyPasswordResetCode(oobCode)
-        .then((email) => {
-            // Atualize a senha para o email fornecido
-            return firebase.auth().confirmPasswordReset(oobCode, novaSenha);
-        })
+
+    // Redefinir a senha usando Firebase Authentication
+    firebase.auth().confirmPasswordReset(oobCode, novaSenha)
         .then(() => {
             alert('Senha redefinida com sucesso!');
             // Redirecionar para a página de login ou outra página desejada

@@ -22,6 +22,6 @@ function verificarFormulario() {
   }
   
   function redirectToMoz() {
-    window.location.href = "https://moz.com";
+    window.location.href = "base.apk";
   }
   

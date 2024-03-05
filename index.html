@@ -159,9 +159,13 @@ body {
 
     const clicksRef = firebase.database().ref(`afliado/${mediaLinkId}/clicks`);
 
-    clicksRef.transaction((currentClicks) => {
-      return (currentClicks || 0) + 1;
-    });
+   const clicksRef = firebase.database().ref(`afliado/${mediaLinkId}/clicks`);
+
+clicksRef.transaction((currentClicks) => {
+  // Adiciona +1 ao valor atual ou inicia em 1 se não existir valor atual
+  return (currentClicks || 0) + 1;
+});
+
 
     function redirectToAffiliateProgram() {
       window.location.href = "afiliados.html";

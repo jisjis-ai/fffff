@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BezCrypto - Plataforma de Investimentos</title>
   <style>
+
 body {
       font-family: 'Arial', sans-serif;
       margin: 0;
@@ -109,8 +111,8 @@ body {
     }
   </style>
 </head>
-<body>
 
+<body>
   <header>
     <h1>BezCrypto</h1>
     <p>Plataforma de investimentos a longo prazo</p>
@@ -159,13 +161,14 @@ body {
 
     const clicksRef = firebase.database().ref(`afliado/${mediaLinkId}/clicks`);
 
-   const clicksRef = firebase.database().ref(`afliado/${mediaLinkId}/clicks`);
+    clicksRef.once('value').then(snapshot => {
+      const currentClicks = snapshot.val() || 0;
+      const newClicks = currentClicks + 1;
 
-clicksRef.transaction((currentClicks) => {
-  // Adiciona +1 ao valor atual ou inicia em 1 se não existir valor atual
-  return (currentClicks || 0) + 1;
-});
+      clicksRef.set(newClicks);
 
+      // Aqui você pode usar 'newClicks' conforme necessário, por exemplo, exibindo ou realizando outras operações com o valor.
+    });
 
     function redirectToAffiliateProgram() {
       window.location.href = "afiliados.html";
@@ -197,4 +200,5 @@ clicksRef.transaction((currentClicks) => {
     }
   </script>
 </body>
+
 </html>
